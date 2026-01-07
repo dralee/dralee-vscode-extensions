@@ -1,0 +1,29 @@
+{
+  "name": "dralee-export-query-syntax",
+  "displayName": "Dralee Export Query Syntax Highlighter",
+  "description": "自定义导出查询语法高亮",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "deq",
+        "aliases": ["Dralee Export Query", "draleeexportquery", "deq"],
+        "extensions": [".q", ".deq"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "deq",
+        "scopeName": "source.deq",
+        "path": "./syntaxes/deq.tmLanguage.json"
+      }
+    ]
+  }
+}
