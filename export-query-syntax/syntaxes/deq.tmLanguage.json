@@ -127,7 +127,7 @@
       "patterns": [
         {
           "name": "keyword.operator.logical.deq",
-          "match": "\\b(AND|OR|NOT)\\b"
+          "match": "\\b(AND|OR|NOT|ORDER|BY|ASC|DESC|LIMIT|OFFSET|GROUP)\\b"
         }
       ]
     },
@@ -226,7 +226,7 @@
       "patterns": [
         {
           "name": "variable.other.field-name.deq",
-          "match": "^[a-zA-Z_][a-zA-Z0-9_]*\\s*$"
+          "match": "^[a-zA-Z_][a-zA-Z0-9_\\?]*\\s*$"
         }
       ]
     }
