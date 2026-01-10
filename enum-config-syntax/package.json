@@ -1,0 +1,29 @@
+{
+  "name": "dralee-enum-config-syntax",
+  "displayName": "Dralee Enum Config Syntax Highlighter",
+  "description": "自定义枚举配置语法高亮",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "dec",
+        "aliases": ["Dralee Enum Config", "draleeenumconfig", "dec"],
+        "extensions": [".dec"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "dec",
+        "scopeName": "source.dec",
+        "path": "./syntaxes/dec.tmLanguage.json"
+      }
+    ]
+  }
+}
