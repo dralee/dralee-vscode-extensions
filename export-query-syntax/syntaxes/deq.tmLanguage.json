@@ -83,7 +83,7 @@
       "patterns": [
         {
           "name": "entity.name.type.table.deq",
-          "match": "(?<=\\[)([^$;\\]]+)(?=;)"
+          "match": "(?<=\\[)([^$;\\]]+)"
         }
       ]
     },
