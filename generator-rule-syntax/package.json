@@ -1,0 +1,29 @@
+{
+  "name": "dralee-generator-rule-syntax",
+  "displayName": "Dralee Generator Rule Syntax Highlighter",
+  "description": "遊龍生成器规则语法高亮",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "dralee-generator-rule",
+        "aliases": ["Dralee generator rule", "draleeegeneratorrule", "dr"],
+        "extensions": [".dr"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "dralee-generator-rule",
+        "scopeName": "source.dr",
+        "path": "./syntaxes/dr.tmLanguage.json"
+      }
+    ]
+  }
+}

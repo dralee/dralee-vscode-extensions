@@ -1,0 +1,230 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Dralee Enum Config",
+  "scopeName": "source.dr",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#table-name"
+    },
+    {
+      "include": "#global-work-field"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.configenum",
+          "match": "^\\s*#.*$"
+        }
+      ]
+    },
+    "table-name": {
+      "patterns": [
+        {
+          "name": "meta.table-name.configenum",
+          "match": "^\\[([^\\]]+)\\]",
+          "captures": {
+            "0": {
+              "name": "entity.name.section.configenum"
+            },
+            "1": {
+              "name": "entity.name.type.table.configenum"
+            }
+          }
+        }
+      ]
+    },
+    "global-work-field": {
+      "patterns": [
+        {
+          "name": "meta.global-work.configenum",
+          "begin": "^([a-zA-Z_][a-zA-Z0-9_]*)(==>)",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "variable.other.table-name.configenum"
+            },
+            "2": {
+              "name": "keyword.operator.assignment.configenum"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#global-work-item"
+            },
+            {
+              "include": "#field-ref-type"
+            },
+            {
+              "include": "#field-enum-definition"
+            }
+          ]
+        }
+      ]
+    },
+    "global-work-item": {
+      "patterns": [
+        {
+          "name": "meta.global-work-item.configenum",
+          "match": "([a-zA-Z_-][a-zA-Z0-9_-]*)(:)([a-zA-Z_][a-zA-Z0-9_]*)(\\[([^\\]]+)\\])?",
+          "captures": {
+            "1": {
+              "name": "entity.name.tag.config-key.configenum"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.configenum"
+            },
+            "3": {
+              "name": "variable.other.field-name.configenum"
+            },
+            "4": {
+              "name": "meta.field-description-block.configenum"
+            },
+            "5": {
+              "patterns": [
+                {
+                  "include": "#inline-enum-description"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "punctuation.separator.item.configenum",
+          "match": ","
+        }
+      ]
+    },
+    "inline-enum-description": {
+      "patterns": [
+        {
+          "name": "meta.inline-enum.configenum",
+          "match": "([^：:,]+)([：:])(\\d+)\\s*-\\s*([^,，]+)",
+          "captures": {
+            "1": {
+              "name": "string.unquoted.field-description.configenum"
+            },
+            "2": {
+              "name": "punctuation.separator.description.configenum"
+            },
+            "3": {
+              "name": "constant.numeric.enum-value.configenum"
+            },
+            "4": {
+              "name": "string.unquoted.enum-description.configenum"
+            }
+          }
+        },
+        {
+          "name": "constant.numeric.enum-value.configenum",
+          "match": "\\d+"
+        },
+        {
+          "name": "string.unquoted.description.configenum",
+          "match": "[^,，\\[\\]]+"
+        }
+      ]
+    },
+    "field-definition": {
+      "patterns": [
+        {
+          "include": "#field-ref-type"
+        },
+        {
+          "include": "#field-enum-definition"
+        }
+      ]
+    },
+    "field-ref-type": {
+      "patterns": [
+        {
+          "name": "meta.field-ref.configenum",
+          "match": "(\\$Ref\\$)([a-zA-Z_][a-zA-Z0-9_]*)\\s*$",
+          "captures": {
+            "1": {
+              "name": "variable.other.field-name.configenum"
+            },
+            "2": {
+              "name": "keyword.operator.assignment.configenum"
+            },
+            "3": {
+              "name": "keyword.control.ref.configenum"
+            },
+            "4": {
+              "name": "entity.name.type.enum-ref.configenum"
+            }
+          }
+        }
+      ]
+    },
+    "field-enum-definition": {
+      "patterns": [
+        {
+          "name": "meta.field-enum.configenum",
+          "begin": "[^:：;；,，]+(?=[;；:：:])",
+          "end": "(\\$#)([a-zA-Z_][a-zA-Z0-9_]*)(\\.Json)?\\s*$",
+          "endCaptures": {
+            "1": {
+              "name": "keyword.operator.enum-type-separator.configenum"
+            },
+            "2": {
+              "name": "entity.name.type.enum-type.configenum"
+            },
+            "3": {
+              "name": "entity.name.type.enum-ref.configenum"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#field-description"
+            },
+            {
+              "include": "#enum-items"
+            }
+          ]
+        }
+      ]
+    },
+    "field-description": {
+      "patterns": [
+        {
+          "name": "string.unquoted.field-description.configenum",
+          "match": "[^:：;；,，]+(?=[;；:：:])"
+        }
+      ]
+    },
+    "enum-items": {
+      "patterns": [
+        {
+          "name": "meta.enum-item.configenum",
+          "match": "([0-9]+)\\s*([:：-])\\s*([^$,，]+?)(\\$\\$)([a-zA-Z_][a-zA-Z0-9_]*)",
+          "captures": {
+            "1": {
+              "name": "constant.numeric.enum-value.configenum"
+            },
+            "2": {
+              "name": "punctuation.separator.enum-desc.configenum"
+            },
+            "3": {
+              "name": "string.unquoted.enum-description.configenum"
+            },
+            "4": {
+              "name": "keyword.operator.enum-name-separator.configenum"
+            },
+            "5": {
+              "name": "entity.name.constant.enum-name.configenum"
+            }
+          }
+        },
+        {
+          "name": "punctuation.separator.enum-item.configenum",
+          "match": "[,，]"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,151 @@
+# 配置生成结果文件同步规则
+# 2025.10.11 by dralee
+# 主体类到领域下, / 结尾表示直接按名称拷贝到指定目录下，非/结尾则表示拷贝为指定名称
+# 如果在项中需要使用“#”符号，则需要包含在“”、''、或通过\#进行指定，否则为注释内容
+# 根据配置configs下各项参数进行条件设置
+# ************************** 固定参数变量 **************************
+# model: 实体名称
+# domain: 领域名称
+# domainPath: 项目领域层路径
+# appPath: 项目application应用层路径
+# appHostPath: 项目application host应用层路径
+# repoPath: 项目repository仓储层路径
+# servicePath: 项目service服务层路径
+# controllerPath: 项目controller服务层路径
+# eventMsgPath: 项目event集成事件层路径
+# hasCommand: 固定项，是否有命令，内部处理为各种command的组合
+# hasController: 是否有控制器，内部处理为各种controller的组合
+
+# ************************** 规则参数变量 **************************
+# 目录匹配规则：dir之后“:”表示直接目录名称等于，"%"表示文件路径中包含指定串，
+#  第二项"%"表示在第一项匹配的情况下，还需要验证文件名（只有文件名及文件扩展）
+#  是否匹配（此项内容必须为正则表达式），正则条件中${domain}与${model}参数为：@domain@与@model@
+# dir: xxx 文件目录名称
+# 同时指定文件规则：dir: xxx % abc*.cs
+# dir% /xxxx/ 文件目录包含 /xxxx/
+# 同时指定文件规则：dir%/xxx/%abc.*.cs
+#   其表示为：匹配目录/xxx/，同时文件必须为abc.*.cs（即abcd.cs或abcxxxxx.cs）
+#   如果出现不同目录下相同文件，并且需要拷贝到不同目录下，则可通过目录模板匹配规则：
+#    {dir%/XXXX/%@domain@AppService.cs}，则能匹配/XXXX/目录下${domain}AppService.cs
+#    {dir%/XXXX/%I@domain@AppService.cs}，则能匹配/XXXX/目录下I${domain}AppService.cs
+#   以下两条接口与非接口只差I开头，可合并为：{dir%/XXXX/%I?@domain@AppService.cs}，
+#     则能匹配/XXXX/目录下I${domain}AppService.cs与/XXXX/目录下${domain}AppService.cs
+
+# ************************** 规则条目 **************************
+# 文件名/目录匹配格式==>目标文件,条件判定
+# 文件名项支持使用及${domain}及${model}
+# 在目录匹配格式中条件匹配支持的参数为：@domain@ 及 @model@
+# 目标文件：直接名称则为指定文件名；如以“/”结尾，则表示到该目录下
+# 条件判定：由config项目中各项目进行操作，如果不指定，则表示为true；暂只支持一层逻辑运算（&&或||）
+
+# ================================================
+# 领域层相关内容
+${model}.cs==>${domainPath}/${domain}/${model}.cs
+
+# command
+${model}Command.cs==>${domainPath}/${domain}/Commands/,hasCommand
+Create${model}Command.cs==>${domainPath}/${domain}/Commands/,commandConfig.hasCreate
+CreateBatch${model}Command.cs==>${domainPath}/${domain}/Commands/,commandConfig.hasBatchCreate
+Update${model}Command.cs==>${domainPath}/${domain}/Commands/,commandConfig.hasUpdate
+UpdateBatch${model}Command.cs==>${domainPath}/${domain}/Commands/,commandConfig.hasBatchUpdate
+Delete${model}Command.cs==>${domainPath}/${domain}/Commands/,commandConfig.hasDelete
+DeleteBatch${model}Command.cs==>${domainPath}/${domain}/Commands/,commandConfig.hasBatchDelete
+Set${model}EnableCommand.cs==>${domainPath}/${domain}/Commands/,hasCommand
+Set${model}StatusCommand.cs==>${domainPath}/${domain}/Commands/,hasWorkflowApprove
+InvalidOther${model}Command.cs==>${domainPath}/${domain}/Commands/,hasWorkflowApprove
+Set${model}RewriteStatusCommand.cs==>${domainPath}/${domain}/Commands/,hasWorkflowApprove
+# command handler
+${model}CommandHandler.cs==>${domainPath}/${domain}/Commands/Handler/,commandConfig.hasCommandHandler
+# command validation
+${model}CommandValidation.cs==>${domainPath}/${domain}/Validations/,hasCommand
+Create${model}CommandValidation.cs==>${domainPath}/${domain}/Validations/,commandConfig.hasCreate
+CreateBatch${model}CommandValidation.cs==>${domainPath}/${domain}/Validations/,commandConfig.hasBatchCreate
+Update${model}CommandValidation.cs==>${domainPath}/${domain}/Validations/,commandConfig.hasUpdate
+UpdateBatch${model}CommandValidation.cs==>${domainPath}/${domain}/Validations/,commandConfig.hasBatchUpdate
+Delete${model}CommandValidation.cs==>${domainPath}/${domain}/Validations/,commandConfig.hasDelete
+DeleteBatch${model}CommandValidation.cs==>${domainPath}/${domain}/Validations/,commandConfig.hasBatchDelete
+Set${model}EnableCommandValidation.cs==>${domainPath}/${domain}/Validations/,hasCommand
+Set${model}StatusCommandValidation.cs==>${domainPath}/${domain}/Validations/,hasWorkflowApprove
+InvalidOther${model}CommandValidation.cs==>${domainPath}/${domain}/Validations/,hasWorkflowApprove
+Set${model}RewriteStatusCommandValidation.cs==>${domainPath}/${domain}/Commands/,hasWorkflowApprove
+
+# domain event
+Create${model}DomainEvent.cs==>${domainPath}/${domain}/Events/,eventConfig.hasCreate
+Remove${model}DomainEvent.cs==>${domainPath}/${domain}/Events/,eventConfig.hasDelete
+# domain event handler
+${model}EventHandler.cs==>${domainPath}/${domain}/Events/Handler/,eventConfig.hasEventHandler
+${model}CacheEventHandler.cs==>${domainPath}/${domain}/Events/Handler/,eventConfig.hasCacheHandler
+# repository
+I${model}Repository.cs==>${domainPath}/${domain}/Repository/
+
+# domain service
+I${model}Service.cs==>${domainPath}/${domain}/Service/,hasService
+${model}Service.cs==>${domainPath}/${domain}/Service/,hasService
+# dto
+${model}Dto.cs==>${domainPath}/${domain}/Dtos/,hasDto
+${model}StatusDto.cs==>${domainPath}/${domain}/Dtos/,hasWorkflowApprove
+BatchCreate${model}Dto.cs==>${domainPath}/${domain}/Dtos/,hasDto && commandConfig.hasBatchCreate
+BatchUpdate${model}Dto.cs==>${domainPath}/${domain}/Dtos/,hasDto && commandConfig.hasBatchUpdate
+${model}ListDto.cs==>${domainPath}/${domain}/Dtos/List/,hasDto && hasQueryList
+${model}ListParam.cs==>${domainPath}/${domain}/Dtos/Param/,hasDto && hasQueryList
+${model}SubmitParam.cs==>${domainPath}/${domain}/Dtos/Param/,hasWorkflowApprove
+${model}CompleteParam.cs==>${domainPath}/${domain}/Dtos/Param/,hasWorkflowApprove
+${model}CancelParam.cs==>${domainPath}/${domain}/Dtos/Param/,hasWorkflowApprove
+
+# domain aggregate service
+I${domain}AggregateService.cs==>${domainPath}/DomainAggregate/${domain}/,hasService
+${domain}AggregateService.cs==>${domainPath}/DomainAggregate/${domain}/,hasService
+# process domain aggregate service
+IProcessAggregateService.cs==>${domainPath}/DomainAggregate/Process/,hasWorkflowApprove
+ProcessAggregateService.cs==>${domainPath}/DomainAggregate/Process/,hasWorkflowApprove
+
+# global
+DomainRedisConstants.cs==>${domainPath}/Global/Configs/
+WorkflowConfig.cs==>${domainPath}/Global/Configs/,hasWorkflowApprove
+# enums
+# 文件上级目录名称为Enums
+${dir:Enums}==>${domainPath}/Global/Enums/
+
+# ================================================
+# 基础设施层相关内容 infrastructure
+${model}Repository.cs==>${repoPath}/${domain}/
+PagedSql.cs==>${repoPath}/Sql/
+
+# ================================================
+# 集成事件层相关内容 event msg contract
+# 所有EventMsgContract目录下以Event为结尾的
+${dir%/EventMsgContract/%.*Event.cs$}==>${eventMsgPath}/Domain/Events/
+${model}CanceledEvent.cs==>${eventMsgPath}/Domain/Events/,hasWorkflowApprove
+${model}AuditCompletedEvent.cs==>${eventMsgPath}/Domain/Events/,hasWorkflowApprove
+DomainEventConstants.cs==>${eventMsgPath}/Domain/,hasWorkflowApprove
+
+# ================================================
+# 应用服务层相关内容
+# request
+${dir%/Application/%@model@Request.cs}==>${appPath}/${domain}/Dtos/,hasRequest
+${dir%/Application/%Create@model@Request.cs}==>${appPath}/${domain}/Dtos/,hasRequest
+${dir%/Application/%@model@ListRequest.cs}==>${appPath}/${domain}/Dtos/,hasRequest
+${dir%/Application/%@model@SubmitRequest.cs}==>${appPath}/${domain}/Dtos/,hasWorkflowApprove
+${dir%/Application/%@model@ApproveRequest.cs}==>${appPath}/${domain}/Dtos/,hasWorkflowApprove
+${dir%/Application/%@model@CancelRequest.cs}==>${appPath}/${domain}/Dtos/,hasWorkflowApprove
+NextProcessNodeOperatorsRequest.cs==>${appPath}/Process/Dtos/,hasWorkflowApprove
+
+# app service
+#I${domain}AppService.cs==>${appPath}/${domain}/,hasAppService
+#${domain}AppService.cs==>${appPath}/${domain}/,hasAppService
+${dir%/Application/%I?@domain@AppService.cs}==>${appPath}/${domain}/,hasAppService
+# process app service
+IProcessAppService.cs==>${appPath}/Process/,hasWorkflowApprove
+ProcessAppService.cs==>${appPath}/Process/,hasWorkflowApprove
+# app host service
+${dir%/Application.Host/%I?@domain@AppService.cs}==>${appHostPath}/${domain}/,hasWorkflowApprove
+${model}CanceledEventHandler.cs==>${appHostPath}/Events/Consumer/,hasWorkflowApprove
+${model}AuditCompletedEventHandler.cs==>${appHostPath}/Events/Consumer/,hasWorkflowApprove
+ProcessCanceledEventHandler.cs==>${appHostPath}/Events/Workflow/,hasWorkflowApprove
+${dir%/Application.Host/%InnerConstants.cs}==>${appHostPath}/Global/,hasWorkflowApprove
+
+# ================================================
+# 应用接口层相关内容
+${domain}Controller.cs==>${controllerPath}/,hasController
+ProcessController.cs==>${controllerPath}/,hasWorkflowApprove
+
