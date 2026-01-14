@@ -136,8 +136,8 @@ bind_status==>绑定状态：0-未绑定$$None，10-默认绑定$$Default$#Quali
 
 ```json
 {
-  "editor.tokenColorCustomizations": {
-    "textMateRules": [
+    "editor.tokenColorCustomizations": {
+      "textMateRules": [
       {
         "scope": "comment.line.number-sign.configenum",
         "settings": {

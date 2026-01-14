@@ -2,7 +2,7 @@
 # 这是全局的枚举配置
 [global]
 COLUMN==>质检单对应报告状态：10-变更草稿$$ChangeDraft，20-变更中$$Changing，30-已变更$$Changed$#OrderReportChangeStatus.Json
-COLUMN==>设置审批状态类型：0:空$$None,1:提交$$Submit,2:审批完成$$ApproveComplete,3:作废$$Cancel$#SetApproveStatusType
+COLUMN==>设置审批状态类型：0-空$$None,1-提交$$Submit,2-审批完成$$ApproveComplete,3:作废$$Cancel$#SetApproveStatusType
 
 # 产品质检单
 [quality_check_order]
@@ -52,7 +52,7 @@ check_method==>$Ref$QualityCheckMethod
 
 # 检查报告模板
 [quality_standard_check_report_template]
-marquee_type==>填选框类型: 0-单行输入框$$SingleLineText，1:多行输入框$$MultipleLineText，2:下拉单选框$$RadioList，3:下拉多选框$$CheckboxList，4:单选勾选框$$Radio，5:多选勾选框$$Checkbox，6：日期选择框$$Datetime$#TemplateMarqueeType.Json
+marquee_type==>填选框类型: 0-单行输入框$$SingleLineText，1-多行输入框$$MultipleLineText，2:下拉单选框$$RadioList，3:下拉多选框$$CheckboxList，4:单选勾选框$$Radio，5:多选勾选框$$Checkbox，6：日期选择框$$Datetime$#TemplateMarqueeType.Json
 
 # 质检单质检报告附件
 [quality_check_order_report_attach]
@@ -73,6 +73,8 @@ file_type==>附件类型：0-问题图片$$QuestionPicture，1:其他图片$$Oth
 # rewrite-model-with-id:回写的单据对应的本单据对应id字段，需与rewrite-id同时设置；
 # version-src-id: 多版本间来源字段用于设置作废重新生成,[]中输入字段的描述
 # item-table:对应的明细表,main-id:明细中主单id；audit-operate-obj:审计日志对象类型（定义于OperateObjType中）
+quality_check_order_report_item==>status:status,main-id:qcor_id[主单id]
+quality_check_order_report_item2==>status:status,main-id:qcor_id[主单id]
 quality_check_order_report==>status:status[报告状态：10-草稿，20-未生效，30-已生效，40-已失效，50-变更草稿，60-变更中，70-已变更，80-已作废],code:qco_code[质检单单据编号],rewrite-id:qco_id[质检单单据id],rewrite-model:QualityCheckOrder[产品质检单],rewrite-model-status:status[单据状态：10-草稿，20-未生效，30-已生效，40-已完成，100-已作废],rewrite-model-with-id:qcor_id[质检报告id],version-src-id:src_qcor_id[来源质检报告id],audit-operate-obj:QOR,item-table:quality_check_order_report_item
 quality_check_order_report_item==>status:status,main-id:qcor_id[主单id]
 

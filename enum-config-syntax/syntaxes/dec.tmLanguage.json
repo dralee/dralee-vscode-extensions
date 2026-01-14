@@ -10,7 +10,7 @@
       "include": "#table-name"
     },
     {
-      "include": "#field-definition"
+      "include": "#global-work-field"
     }
   ],
   "repository": {
@@ -18,7 +18,7 @@
       "patterns": [
         {
           "name": "comment.line.number-sign.configenum",
-          "match": "(?<!\\$)#.*$"
+          "match": "^\\s*#.*$"
         }
       ]
     },
@@ -38,6 +38,97 @@
         }
       ]
     },
+    "global-work-field": {
+      "patterns": [
+        {
+          "name": "meta.global-work.configenum",
+          "begin": "^([a-zA-Z_][a-zA-Z0-9_]*)(==>)",
+          "end": "$",
+          "beginCaptures": {
+            "1": {
+              "name": "variable.other.table-name.configenum"
+            },
+            "2": {
+              "name": "keyword.operator.assignment.configenum"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#global-work-item"
+            },
+            {
+              "include": "#field-ref-type"
+            },
+            {
+              "include": "#field-enum-definition"
+            }
+          ]
+        }
+      ]
+    },
+    "global-work-item": {
+      "patterns": [
+        {
+          "name": "meta.global-work-item.configenum",
+          "match": "([a-zA-Z_-][a-zA-Z0-9_-]*)(:)([a-zA-Z_][a-zA-Z0-9_]*)(\\[([^\\]]+)\\])?",
+          "captures": {
+            "1": {
+              "name": "entity.name.tag.config-key.configenum"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.configenum"
+            },
+            "3": {
+              "name": "variable.other.field-name.configenum"
+            },
+            "4": {
+              "name": "meta.field-description-block.configenum"
+            },
+            "5": {
+              "patterns": [
+                {
+                  "include": "#inline-enum-description"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "punctuation.separator.item.configenum",
+          "match": ","
+        }
+      ]
+    },
+    "inline-enum-description": {
+      "patterns": [
+        {
+          "name": "meta.inline-enum.configenum",
+          "match": "([^：:,]+)([：:])(\\d+)\\s*-\\s*([^,，]+)",
+          "captures": {
+            "1": {
+              "name": "string.unquoted.field-description.configenum"
+            },
+            "2": {
+              "name": "punctuation.separator.description.configenum"
+            },
+            "3": {
+              "name": "constant.numeric.enum-value.configenum"
+            },
+            "4": {
+              "name": "string.unquoted.enum-description.configenum"
+            }
+          }
+        },
+        {
+          "name": "constant.numeric.enum-value.configenum",
+          "match": "\\d+"
+        },
+        {
+          "name": "string.unquoted.description.configenum",
+          "match": "[^,，\\[\\]]+"
+        }
+      ]
+    },
     "field-definition": {
       "patterns": [
         {
@@ -45,9 +136,6 @@
         },
         {
           "include": "#field-enum-definition"
-        },
-        {
-          "include": "#field-workflow-definition"
         }
       ]
     },
@@ -55,7 +143,7 @@
       "patterns": [
         {
           "name": "meta.field-ref.configenum",
-          "match": "^([a-zA-Z_][a-zA-Z0-9_]*)(==>)(\\$Ref\\$)([a-zA-Z_][a-zA-Z0-9_]*)\\s*$",
+          "match": "(\\$Ref\\$)([a-zA-Z_][a-zA-Z0-9_]*)\\s*$",
           "captures": {
             "1": {
               "name": "variable.other.field-name.configenum"
@@ -77,16 +165,8 @@
       "patterns": [
         {
           "name": "meta.field-enum.configenum",
-          "begin": "^([a-zA-Z_][a-zA-Z0-9_]*)(==>)",
+          "begin": "[^:：;；,，]+(?=[;；:：:])",
           "end": "(\\$#)([a-zA-Z_][a-zA-Z0-9_]*)(\\.Json)?\\s*$",
-          "beginCaptures": {
-            "1": {
-              "name": "variable.other.field-name.configenum"
-            },
-            "2": {
-              "name": "keyword.operator.assignment.configenum"
-            }
-          },
           "endCaptures": {
             "1": {
               "name": "keyword.operator.enum-type-separator.configenum"
@@ -113,7 +193,7 @@
       "patterns": [
         {
           "name": "string.unquoted.field-description.configenum",
-          "match": "[^:：;；,，]+(?=[;；:：])"
+          "match": "[^:：;；,，]+(?=[;；:：:])"
         }
       ]
     },
@@ -121,7 +201,7 @@
       "patterns": [
         {
           "name": "meta.enum-item.configenum",
-          "match": "([0-9]+)\\s*([-:：])\\s*([^$,，]+?)(\\$\\$)([a-zA-Z_][a-zA-Z0-9_]*)",
+          "match": "([0-9]+)\\s*([:：-])\\s*([^$,，]+?)(\\$\\$)([a-zA-Z_][a-zA-Z0-9_]*)",
           "captures": {
             "1": {
               "name": "constant.numeric.enum-value.configenum"
@@ -143,84 +223,6 @@
         {
           "name": "punctuation.separator.enum-item.configenum",
           "match": "[,，]"
-        }
-      ]
-    },
-    "field-workflow-definition": {
-      "patterns": [
-        {
-          "name": "meta.field-workflow.configenum",
-          "begin": "^([a-zA-Z_][a-zA-Z0-9_]*)(==>)",
-          "end": "([a-zA-Z_][a-zA-Z0-9_-]*)(:)([a-zA-Z_][a-zA-Z0-9_]*)(\\[[^\\[\\]]+\\])?\\s*$",
-          "beginCaptures": {
-            "1": {
-              "name": "variable.other.table-name.workflow"
-            },
-            "2": {
-              "name": "keyword.operator.assignment.workflow"
-            }
-          },
-          "endCaptures": {
-            "1": {
-              "name": "entity.name.type.column-name.workflow"
-            },
-            "2": {
-              "name": "keyword.operator.column-name-separator.workflow"
-            },
-            "3": {
-              "name": "entity.name.type.column-des-name.workflow"
-            }
-          },
-          "patterns": [
-            {
-              "include": "#workflow-items"
-            }
-          ]
-        }
-      ]
-    },
-    "workflow-items": {
-      "patterns": [
-        {
-          "name": "meta.workflow-item.configenum",
-          "match": "([a-zA-Z_][a-zA-Z0-9_-]*)\\s*([:])\\s*([a-zA-Z_][a-zA-Z0-9_]*)(\\[[^\\[\\]]+\\])?",
-          "captures": {
-            "1": {
-              "name": "entity.name.constant.enum-name.configenum"
-            },
-            "2": {
-              "name": "punctuation.separator.enum-desc.configenum"
-            },
-            "3": {
-              "name": "constant.numeric.enum-value.configenum"
-            },
-            "4": {
-              "name": "string.unquoted.enum-description.configenum"
-            }
-          }       
-        },
-        {
-          "name": "punctuation.separator.workflow-item.configenum",
-          "match": "[,]"
-        },
-        {
-          "include": "#workflow-item-desc-name"
-        }
-      ]
-    },
-    "workflow-item-desc-name": {
-      "patterns": [
-        {
-          "name": "meta.workflow-desc.configenum",
-          "match": "^\\[([^\\[\\]]+)\\]",
-          "captures": {
-            "0": {
-              "name": "entity.name.section.configenum"
-            },
-            "1": {
-              "name": "entity.name.type.table.configenum"
-            }
-          }
         }
       ]
     }
