@@ -1,0 +1,31 @@
+# 自定义环境及文件替换 - 示例环境配置
+# 2025.12.27 by dralee
+# 自定义服务项替换
+# project-root，项目根目录，如指定为：/home/dralee/f/gitlab/z9yun-group/z9yun-backend-dotnet
+# envs自定义的环境，common为默认必须项，其他可自行定义，支持多个自定义环境
+# 文件中的配置项（支持多行配置文件，但必须以“环境名”==/xxxx作为起始），
+#   如果同一文件有多个替换项，则分多行配置；如果多个文件，则文件间用,分隔
+#  如果在项中需要使用“#”符号，则需要包含在“”、''、或通过\#进行指定，否则为注释内容
+# 格式为：目标环境=文件名[,]=>$
+# 公共环境中项<==>对应环境中项
+project-root=/home/dralee/f/gitlab/z9yun-group/z9yun-backend-dotnet
+envs=common,jtzs
+
+# ============================ 基础服务 ============================ 
+# 用户中心服务
+[usercenter]
+# 文件中的配置项，如果同一文件有多个替换项，则分多行配置
+# 领域缓存常量
+jtzs==/src/base/usercenter/Z9.Yun.UserCenter.Domain/Global/Configs/DomainConstants.cs=>$
+abc<==>\#abc
+LowerShortAppName = "ucs";<==>LowerShortAppName = "ucs-jtzs";
+# 事件常量
+jtzs==/src/base/usercenter/Z9.Yun.UserCenter.EventMsgContract/Domain/InnerConstants.cs=>$
+-event";<==>-event-jtzs";
+# 配置文件，此项仅为测试，非正式内容
+jtzs==/src/business/Purchase/Z9.Yun.Purchase.HttpApi/appsettings.json,
+/src/base/usercenter/HttpApi/Z9.Yun.UserCenter.HttpApi/appsettings.Dev.json=>$
+"http://dev-usercenter-api.z9soft.cn",<==>"http://dev-usercenter-inner-api.z9soft.cn",
+"User": "admin",<==>"User": "z9Admin",
+"Tester": "true",<==>"Tester": "false",
+"http://dev-oss-2-api.z9soft.cn",<==>"http://dev-oss-2-inner-api.z9soft.cn",

@@ -18,7 +18,39 @@
       "patterns": [
         {
           "name": "comment.line.number-sign.configenum",
-          "match": "^\\s*#.*$"
+          "match": "(?<!\\\\)#.*$"
+        }
+      ]
+    },
+    "string-content": {
+      "patterns": [
+        {
+          "name": "constant.character.escape.multilineconfig",
+          "match": "\\\\[#'\"\\\\nrt]"
+        },
+        {
+          "name": "string.regexp.hash.multilineconfig",
+          "match": "\\\\#"
+        }
+      ]
+    },
+    "double-quoted-string": {
+      "name": "string.quoted.double.multilineconfig",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "include": "#string-content"
+        }
+      ]
+    },
+    "single-quoted-string": {
+      "name": "string.quoted.single.multilineconfig",
+      "begin": "'",
+      "end": "'",
+      "patterns": [
+        {
+          "include": "#string-content"
         }
       ]
     },
@@ -81,21 +113,47 @@
       "patterns": [
         {
           "name": "meta.double-equal-arrow.priority",
-          "match": "^\\s*([a-zA-Z_][a-zA-Z0-9_-]*)\\s*(==)\\s*([^=]+)\\s*(=>\\$)\\s*$",
-          "captures": {
+          "begin": "^\\s*([a-zA-Z_][a-zA-Z0-9_-]*)\\s*(==)",
+          "end": "(=>\\$)\\s*$",
+          "beginCaptures": {
             "1": {
               "name": "variable.other.name.priority"
             },
             "2": {
               "name": "keyword.operator.double-equal.priority"
-            },
-            "3": {
-              "name": "string.unquoted.path.priority"
-            },
-            "4": {
+            }
+          },
+          "endCaptures": {
+            "1": {
               "name": "keyword.operator.arrow.priority"
             }
-          }
+          },
+          "patterns": [
+            {
+              "include": "#double-quoted-string"
+            },
+            {
+              "include": "#single-quoted-string"
+            },
+            {
+              "include": "#comments"
+            },
+            {
+              "include": "#path-list"
+            }
+          ]
+        }
+      ]
+    },
+    "path-list": {
+      "patterns": [
+        {
+          "name": "string.unquoted.path.multilineconfig",
+          "match": "/[^,\\s=>\\$]+"
+        },
+        {
+          "name": "punctuation.separator.comma.multilineconfig",
+          "match": ","
         }
       ]
     },
