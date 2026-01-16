@@ -1,0 +1,463 @@
+# 自定义环境及文件替换 - fat环境配置，不使用deploy方式，而是直接文件方式
+# 此为env_switch的升级方式，env_switch工具中，使用的是通过对应deploy文件
+#  进行文件替换的方式，每次都需要配置好对应模板文件，而且如果模板文件变化，则需要重新拷贝模板
+#  变化与新增处理较为繁琐；替换为只需要文件指定位置的方式，处理较为简便
+# 2026.01.05 by dralee
+# 自定义服务项替换
+# project-root，项目根目录，如指定为：/home/dralee/f/gitlab/z9yun-group/z9yun-backend-dotnet
+# envs自定义的环境，common为默认必须项，其他可自行定义，支持多个自定义环境
+# 文件中的配置项（支持多行配置文件，但必须以“环境名”==/xxxx作为起始），
+#   如果同一文件有多个替换项，则分多行配置；如果多个文件，则文件间用,分隔
+#  如果在项中需要使用“#”符号，则需要包含在“”、''、或通过\#进行指定，否则为注释内容
+# 格式为：目标环境=文件名[,]=>$
+# 公共环境中项<==>对应环境中项
+project-root=/home/dralee/f/gitlab/z9yun-group/z9yun-backend-dotnet
+envs=common,jtzs
+
+# ============================ 基础服务 ============================ 
+# 用户中心服务
+[usercenter]
+# 文件中的配置项，如果同一文件有多个替换项，则分多行配置
+# 领域缓存常量
+jtzs==/src/base/usercenter/Z9.Yun.UserCenter.Domain/Global/Configs/DomainConstants.cs=>$
+LowerShortAppName = "ucs";<==>LowerShortAppName = "ucs-jtzs";
+# 事件常量
+jtzs==/src/base/usercenter/Z9.Yun.UserCenter.EventMsgContract/Domain/InnerConstants.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/base/console/Z9.Yun.Console.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-console-httpapi<==>serviceName=fat-z9yun-console-httpapi-jtzs
+nodePort=60003<==>nodePort=60327
+jtzs==/src/base/usercenter/HttpApi/Z9.Yun.UserCenter.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-usercenter-httpapi<==>serviceName=fat-z9yun-usercenter-httpapi-jtzs
+nodePort=60001<==>nodePort=60328
+jtzs==/src/base/usercenter/Z9.Yun.UserCenter.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-usercenter-host<==>serviceName=fat-z9yun-usercenter-host-jtzs
+nodePort=60012<==>nodePort=60329
+jtzs==/src/base/usercenter/Z9.Yun.UserCenter.ImportExport.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-usercenter-importexport-host<==>serviceName=fat-z9yun-usercenter-importexport-host-jtzs
+nodePort=60420<==>\#nodePort=60420
+
+
+# 流程服务
+[workflow]
+# 领域缓存常量
+jtzs==/src/base/Workflow/Z9.Yun.Workflow.Domain/Global/Configs/Constants.cs=>$
+LowerAppName = "wfs";<==>LowerAppName = "wfs-jtzs";
+# 事件常量
+jtzs==/src/base/Workflow/Z9.Yun.Workflow.EventMsgContract/Domain/DomainEventConstants.cs=>$
+WorkflowSuperTenantFlowInit = "event-workflow-flow-supertenant-init";<==>WorkflowSuperTenantFlowInit = "event-workflow-flow-supertenant-init-jtzs";
+WorkflowDataFix = "event-workflow-data-fix";<==>WorkflowDataFix = "event-workflow-data-fix-jtzs";
+WorkflowTenantFlowInit = "event-workflow-flow-tenant-init";<==>WorkflowTenantFlowInit = "event-workflow-flow-tenant-init-jtzs";
+ProcessCanceledEvent= "event-workflow-process-canceled";<==>ProcessCanceledEvent= "event-workflow-process-canceled-jtzs";
+# deploy
+jtzs==/src/base/Workflow/Z9.Yun.Workflow.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-workflow-service-host<==>serviceName=fat-z9yun-workflow-service-host-jtzs
+nodePort=60362<==>nodePort=62087
+jtzs==/src/base/Workflow/Z9.Yun.Workflow.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-workflow-httpapi<==>serviceName=fat-z9yun-workflow-httpapi-jtzs
+nodePort=62004<==>nodePort=62086
+
+# 消息服务
+[message]
+# 领域缓存常量
+jtzs==/src/base/Message/Z9.Yun.Message.Domain/Global/Configs/DomainConstants.cs=>$
+LowerAppName = "mcs";<==>LowerAppName = "mcs-jtzs";
+# 事件常量
+jtzs==/src/base/Message/Z9.Yun.Message.EventMsgContract/Domain/InnerConstants.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/base/Message/Z9.Yun.Message.Callback.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-message-service-callback-httpapi<==>serviceName=fat-z9yun-message-service-callback-httpapi-jtzs
+nodePort=60417<==>nodePort=60433
+jtzs==/src/base/Message/Z9.Yun.Message.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-message-service-host<==>serviceName=fat-z9yun-message-service-host-jtzs
+nodePort=60302<==>nodePort=60357
+jtzs==/src/base/Message/Z9.Yun.Message.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-message-service-httpapi<==>serviceName=fat-z9yun-message-service-httpapi-jtzs
+nodePort=60301<==>nodePort=60356
+
+# 工作台服务
+[workbench]
+# 领域缓存常量
+jtzs==/src/base/Workbench/Z9.Yun.Workbench.Domain/Global/Configs/DomainConstants.cs=>$
+LowerShortAppName = "wbs";<==>LowerShortAppName = "wbs-jtzs";
+# deploy
+jtzs==/src/base/Workbench/Z9.Yun.Workbench.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-workbench-host<==>serviceName=fat-z9yun-workbench-host-jtzs
+nodePort=60316<==>nodePort=60359
+jtzs==/src/base/Workbench/Z9.Yun.Workbench.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-workbench-httpapi<==>serviceName=fat-z9yun-workbench-httpapi-jtzs
+nodePort=62026<==>nodePort=60358
+jtzs==/src/base/Workbench/Z9.Yun.Workbench.Internal.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-workbench-internal-httpapi<==>serviceName=fat-z9yun-workbench-internal-httpapi-jtzs
+nodePort=60410<==>nodePort=60434
+
+
+# 基础数据服务
+[basicdata]
+# 领域缓存常量
+jtzs==/src/base/BasicData/Z9.Yun.BasicData.Domain/Constants/RedisConstant.cs=>$
+SystemPrefix = "bds";<==>SystemPrefix = "bds-jtzs";
+jtzs==/src/base/BasicData/Z9.Yun.BasicData.Domain/Shareds/Constants/DomainConstants.cs=>$
+LowerAppName = "bds";<==>LowerAppName = "bds-jtzs";
+jtzs==/src/base/BasicData/Z9.Yun.BasicData.EventMsgContract/Domain/EventConstants.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/base/BasicData/Z9.Yun.BasicData.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-basicdata-host<==>serviceName=fat-z9yun-basicdata-host-jtzs
+nodePort=60376<==>\#nodePort=60376
+servicePort=5000<==>\#servicePort=5000
+containerPort=5000<==>\#containerPort=5000
+appPort=5000<==>\#appPort=5000
+jtzs==/src/base/BasicData/Z9.Yun.BasicData.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-basicdata-httpapi<==>serviceName=fat-z9yun-basicdata-httpapi-jtzs
+nodePort=60322<==>nodePort=60373
+jtzs==/src/base/BasicData/Z9.Yun.BasicData.ImportExport.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-basicdata-importexport-host<==>serviceName=fat-z9yun-basicdata-importexport-host-jtzs
+nodePort=60422<==>\#nodePort=60422
+servicePort=5000<==>\#servicePort=5000
+containerPort=5000<==>\#containerPort=5000
+appPort=5000<==>\#appPort=5000
+
+# 事件服务
+[event]
+# 领域缓存常量
+jtzs==/src/base/EventsService/Z9.Yun.EventsService.Domain/Shares/Constants/DomainRedisConstant.cs=>$
+SystemPrefix = "event";<==>SystemPrefix = "event-jtzs";
+# 事件常量
+jtzs==/src/base/EventsService/Z9.Yun.EventsService.EventMsgConstract/Shares/Contracts/EventsServiceSharedContract.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/base/EventsService/Z9.Yun.EventsService.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-eventsservice-host<==>serviceName=fat-z9yun-eventsservice-host-jtzs
+jtzs==/src/base/EventsService/Z9.Yun.EventsService.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-eventsservice-httpapi<==>serviceName=fat-z9yun-eventsservice-httpapi-jtzs
+nodePort=60311<==>nodePort=60429
+
+# oss服务
+[oss]
+# 领域缓存常量
+jtzs==/src/base/oss/domain/Z9.Yun.Oss.Domain/Shares/RedisConstant.cs=>$
+SystemPrefix = "oss";<==>SystemPrefix = "oss-jtzs";
+# 事件常量
+jtzs==/src/base/oss/Z9.Yun.Oss.EventMsgConstract/Shareds/Contracts/OssEventContract.cs=>$
+-event";<==>-event-jtzs";
+jtzs==/src/base/oss0.2/Z9.Yun.Oss0.2.EventMsgConstract/Shareds/Constants/CAttachContract.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/base/oss/host/Z9.Yun.Oss.Admin.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-oss-admin-host<==>serviceName=fat-z9yun-oss-admin-host-jtzs
+jtzs==/src/base/oss/httpapi/Z9.Yun.Oss.Admin.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-oss-admin-httpapi<==>serviceName=fat-z9yun-oss-admin-httpapi-jtzs
+nodePort=60201<==>nodePort=60431
+jtzs==/src/base/oss/httpapi/Z9.Yun.Oss.Client.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-oss-client-httpapi<==>serviceName=fat-z9yun-oss-client-httpapi-jtzs
+nodePort=60202<==>nodePort=60430
+jtzs==/src/base/oss0.2/Z9.Yun.Oss0.2.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-oss0-2-httpapi<==>serviceName=fat-z9yun-oss0-2-httpapi-jtzs
+nodePort=60307<==>nodePort=60432
+
+# 日志服务
+[auditlog]
+# 领域缓存常量
+jtzs==/src/base/AuditLog/Z9.Yun.AuditLog.Domain/Shareds/Constants/DomainRedisConstant.cs=>$
+SystemPrefix = "als";<==>SystemPrefix = "als-jtzs";
+# 事件常量
+jtzs==/src/base/AuditLog/Z9.Yun.AuditLog.EventMsgConstract/Shareds/Contracts/AuditLogContract.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/base/AuditLog/Z9.Yun.AuditLog.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-auditlog-host<==>serviceName=fat-z9yun-auditlog-host-jtzs
+nodePort=60317<==>\#nodePort=60317
+jtzs==/src/base/AuditLog/Z9.Yun.AuditLog.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-auditlog-httpapi<==>serviceName=fat-z9yun-auditlog-httpapi-jtzs
+nodePort=60318<==>nodePort=60435
+
+
+
+# ============================ 业务服务 ============================ 
+# 产品服务
+[product]
+# 领域缓存常量
+jtzs==/src/business/Product/Z9.Yun.Product.Domain/Shareds/Constant/DomainConstants.cs=>$
+LowerShortAppName = "pms";<==>LowerShortAppName = "pms-jtzs";
+# 事件常量
+jtzs==/src/business/Product/Z9.Yun.Product.EventMsgContract/Domain/EventConstants.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/business/Product/Z9.Yun.Product.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-product-host<==>serviceName=fat-z9yun-product-host-jtzs
+nodePort=62045<==>nodePort=62065
+jtzs==/src/business/Product/Z9.Yun.Product.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-product-httpapi<==>serviceName=fat-z9yun-product-httpapi-jtzs
+nodePort=62012<==>nodePort=62064
+jtzs==/src/business/Product/Z9.Yun.Product.ImportExport.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-product-importexport-host<==>serviceName=fat-z9yun-product-importexport-host-jtzs
+nodePort=62054<==>nodePort=62066
+jtzs==/src/business/Product/Z9.Yun.Product.Internal.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-product-internal-httpapi<==>serviceName=fat-z9yun-product-internal-httpapi-jtzs
+nodePort=62177<==>nodePort=62202
+
+# 合同服务
+[contractagreement]
+# 领域缓存常量
+jtzs==/src/business/ContractAgreement/Z9.Yun.ContractAgreement.Domain/Global/Configs/DomainConstants.cs=>$
+LowerShortAppName = "ca";<==>LowerShortAppName = "ca-jtzs";
+# 事件常量
+jtzs==/src/business/ContractAgreement/Z9.Yun.ContractAgreement.EventMsgContract/Domain/DomainEventConstants.cs=>$
+POTemplateResetEvent = "contractagreement-template-reset-event";<==>POTemplateResetEvent = "contractagreement-template-reset-event-jtzs";
+#deploy
+jtzs==/src/business/ContractAgreement/Z9.Yun.ContractAgreement.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-contractagreement-host<==>serviceName=fat-z9yun-contractagreement-host-jtzs
+nodePort=62047<==>nodePort=62081
+jtzs==/src/business/ContractAgreement/Z9.Yun.ContractAgreement.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-contractagreement-httpapi<==>serviceName=fat-z9yun-contractagreement-httpapi-jtzs
+nodePort=62046<==>nodePort=62080
+jtzs==/src/business/ContractAgreement/Z9.Yun.ContractAgreement.Internal.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-contractagreement-internal-httpapi<==>serviceName=fat-z9yun-contractagreement-internal-httpapi-jtzs
+nodePort=62126<==>nodePort=62196
+
+# 调度服务
+[cpapiss]
+# 领域缓存常量
+jtzs==/src/business/cpapi/Z9.Yun.CPAPI.Domain/Global/Configs/DomainConstants.cs=>$
+LowerShortAppName = "cpapi";<==>LowerShortAppName = "cpapi-jtzs";
+# 事件常量
+jtzs==/src/business/cpapi/Z9.Yun.CPAPI.EventMsgContract/Domain/DomainEventConstants.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/business/cpapi/Z9.Yun.CPAPI.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-cpapiss-host<==>serviceName=fat-z9yun-cpapiss-host-jtzs
+nodePort=62091<==>nodePort=62107
+jtzs==/src/business/cpapi/Z9.Yun.CPAPI.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-cpapiss-httpapi<==>serviceName=fat-z9yun-cpapiss-httpapi-jtzs
+nodePort=62090<==>nodePort=62106
+
+# 供应商服务
+[supplier]
+# 领域缓存常量
+jtzs==/src/business/Supplier/Z9.Yun.Supplier.Domain/Constants/RedisConstant.cs=>$
+SystemPrefix = "sps";<==>SystemPrefix = "sps-jtzs";
+# 事件常量
+jtzs==/src/business/Supplier/Z9.Yun.Supplier.EventMsgContract/Domain/EventConstants.cs=>$
+-event";<==>-event-jtzs";
+jtzs==/src/business/Supplier/Z9.Yun.Supplier.EventMsgContract/Domain/InnerConstants.cs=>$
+-event";<==>-event-jtzs";
+jtzs==/src/business/Supplier/Z9.Yun.Supplier.EventMsgContract/Domain/EventConstans.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/business/Supplier/Z9.Yun.Supplier.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-supplier-host<==>serviceName=fat-z9yun-supplier-host-jtzs
+nodePort=62055<==>nodePort=62111
+jtzs==/src/business/Supplier/Z9.Yun.Supplier.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-supplier-httpapi<==>serviceName=fat-z9yun-supplier-httpapi-jtzs
+nodePort=62007<==>nodePort=62110
+jtzs==/src/business/Supplier/Z9.Yun.Supplier.ImportExport.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-supplier-importexport-host<==>serviceName=fat-z9yun-supplier-importexport-host-jtzs
+jtzs==/src/business/Supplier/Z9.Yun.Supplier.Internal.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-supplier-internal-httpapi<==>serviceName=fat-z9yun-supplier-internal-httpapi-jtzs
+nodePort=62181<==>nodePort=62200
+
+# 采购服务
+[purchase]
+# 领域缓存常量
+jtzs==/src/business/Purchase/Z9.Yun.Purchase.Domain/Shares/Constants/DomainConstant.cs=>$
+PurchasePrefix = "ppms";<==>PurchasePrefix = "ppms-jtzs";
+# deploy
+jtzs==/src/business/Purchase/Z9.Yun.Purchase.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-purchase-host<==>serviceName=fat-z9yun-purchase-host-jtzs
+jtzs==/src/business/Purchase/Z9.Yun.Purchase.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-purchase-httpapi<==>serviceName=fat-z9yun-purchase-httpapi-jtzs
+nodePort=62017<==>nodePort=62115
+jtzs==/src/business/Purchase/Z9.Yun.Purchase.ImportExport.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-purchase-importexport-host<==>serviceName=fat-z9yun-purchase-importexport-host-jtzs
+nodePort=62183<==>\#nodePort=62183
+
+
+# 目标计划服务   
+[targetplan]
+# 领域缓存常量
+jtzs==/src/business/TargetPlan/Z9.Yun.TargetPlan.Domain/Shares/Constants/DomainRedisConstant.cs=>$
+SystemPrefix = "bps";<==>SystemPrefix = "bps-jtzs";
+# 事件常量
+jtzs==/src/business/TargetPlan/Z9.Yun.TargetPlan.EventMsgConstract/Shareds/TargetPlanSharedContract.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/business/TargetPlan/Z9.Yun.TargetPlan.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-targetplan-host<==>serviceName=fat-z9yun-targetplan-host-jtzs
+jtzs==/src/business/TargetPlan/Z9.Yun.TargetPlan.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-targetplan-httpapi<==>serviceName=fat-z9yun-targetplan-httpapi-jtzs
+nodePort=62015<==>nodePort=62116
+jtzs==/src/business/TargetPlan/Z9.Yun.TargetPlan.ImportExport.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-targetplan-importexport-host<==>serviceName=fat-z9yun-targetplan-importexport-host-jtzs
+nodePort=62182<==>nodePort=62188
+
+
+# 店铺账号服务
+[platformaccount]
+# 领域缓存常量
+jtzs==/src/business/PlatformAccount/Z9.Yun.PlatformAccount.Domain/Shareds/Constants/DomainRedisConstant.cs=>$
+LowerAppName = "cpas";<==>LowerAppName = "cpas-jtzs";
+# deploy
+jtzs==/src/business/PlatformAccount/Z9.Yun.PlatformAccount.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-platformaccount-host<==>serviceName=fat-z9yun-platformaccount-host-jtzs
+nodePort=62038<==>nodePort=62119
+jtzs==/src/business/PlatformAccount/Z9.Yun.PlatformAccount.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-platformaccount-httpapi<==>serviceName=fat-z9yun-platformaccount-httpapi-jtzs
+nodePort=62006<==>nodePort=62118
+jtzs==/src/business/PlatformAccount/Z9.Yun.PlatformAccount.ImportExport.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-platformaccount-importexport-host<==>serviceName=fat-z9yun-platformaccount-importexport-host-jtzs
+nodePort=62166<==>\#nodePort=62166
+
+# 企业服务
+[enterprise]
+# 领域缓存常量
+jtzs==/src/business/Enterprise/Z9.Yun.Enterprise.Domain/Global/DomainConstants.cs=>$
+LowerShortAppName = "ems";<==>LowerShortAppName = "ems-jtzs";
+# 事件常量
+jtzs==/src/business/Enterprise/Z9.Yun.Enterprise.EventMsgContract/EventConstants.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/business/Enterprise/Z9.Yun.Enterprise.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-enterprise-host<==>serviceName=fat-z9yun-enterprise-host-jtzs
+nodePort=62051<==>nodePort=62124
+jtzs==/src/business/Enterprise/Z9.Yun.Enterprise.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-enterprise-httpapi<==>serviceName=fat-z9yun-enterprise-httpapi-jtzs
+nodePort=62018<==>nodePort=62123
+jtzs==/src/business/Enterprise/Z9.Yun.Enterprise.ImportExport.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-enterprise-importexport-host<==>serviceName=fat-z9yun-enterprise-importexport-host-jtzs
+nodePort=62169<==>\#nodePort=62169
+jtzs==/src/business/Enterprise/Z9.Yun.Enterprise.Internal.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-enterprise-internal-httpapi<==>serviceName=fat-z9yun-enterprise-internal-httpapi-jtzs
+nodePort=62129<==>nodePort=62197
+
+# 规则服务
+[ruleengine]
+# 领域缓存常量
+jtzs==/src/business/RuleEngine/Z9.Yun.RuleEngine.Domain/Shares/Constants/DomainConstants.cs=>$
+LowerShortAppName = "re";<==>LowerShortAppName = "re-jtzs";
+# deploy
+jtzs==/src/business/RuleEngine/Z9.Yun.RuleEngine.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-ruleengine-host<==>serviceName=fat-z9yun-ruleengine-host-jtzs
+nodePort=62147<==>nodePort=62148
+jtzs==/src/business/RuleEngine/Z9.Yun.RuleEngine.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-ruleengine-httpapi<==>serviceName=fat-z9yun-ruleengine-httpapi-jtzs
+nodePort=62102<==>nodePort=62144
+jtzs==/src/business/RuleEngine/Z9.Yun.RuleEngine.Internal.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-ruleengine-internal-httpapi<==>serviceName=fat-z9yun-ruleengine-internal-httpapi-jtzs
+nodePort=62180<==>nodePort=62199
+
+
+# 仓储服务
+[warehouse]
+# 领域缓存常量
+jtzs==/src/business/Warehouse/Z9.Yun.Warehouse.Domain/Constants/RedisConstant.cs=>$
+SystemPrefix = "wms";<==>SystemPrefix = "wms-jtzs";
+jtzs==/src/business/Warehouse/Z9.Yun.Warehouse.Domain/Shares/Constants/DomainConstants.cs=>$
+LowerAppName = "wms";<==>LowerAppName = "wms-jtzs";
+# 事件常量
+jtzs==/src/business/Warehouse/Z9.Yun.Warehouse.EventMsgConstract/Shareds/WarehouseSharedContract.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/business/Warehouse/Z9.Yun.Warehouse.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-warehouse-host<==>serviceName=fat-z9yun-warehouse-host-jtzs
+nodePort=62022<==>nodePort=62160
+jtzs==/src/business/Warehouse/Z9.Yun.Warehouse.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-warehouse-httpapi<==>serviceName=fat-z9yun-warehouse-httpapi-jtzs
+nodePort=62010<==>nodePort=62159
+jtzs==/src/business/Warehouse/Z9.Yun.Warehouse.ImportExport.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-warehouse-importexport-host<==>serviceName=fat-z9yun-warehouse-importexport-host-jtzs
+nodePort=62151<==>nodePort=62163
+jtzs==/src/business/Warehouse/Z9.Yun.Warehouse.Stock.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-warehouse-stock-host<==>serviceName=fat-z9yun-warehouse-stock-host-jtzs
+jtzs==/src/business/Warehouse/Z9.Yun.Warehouse.Stock.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-warehouse-stock-httpapi<==>serviceName=fat-z9yun-warehouse-stock-httpapi-jtzs
+nodePort=62027<==>nodePort=62161
+
+# 质量服务
+[quality]
+# 领域缓存常量
+jtzs==/src/business/Quality/Z9.Yun.Quality.Domain/Constants/DomainConstants.cs=>$
+LowerShortAppName = "qms";<==>LowerShortAppName = "qms-jtzs";
+# 事件常量
+jtzs==/src/business/Quality/Z9.Yun.Quality.EventMsgContract/Domain/DomainEventConstants.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/business/Quality/Z9.Yun.Quality.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-quality-host<==>serviceName=fat-z9yun-quality-host-jtzs
+jtzs==/src/business/Quality/Z9.Yun.Quality.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-quality-httpapi<==>serviceName=fat-z9yun-quality-httpapi-jtzs
+nodePort=62020<==>nodePort=62175
+jtzs==/src/business/Quality/Z9.Yun.Quality.Internal.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-quality-internal-httpapi<==>serviceName=fat-z9yun-quality-internal-httpapi-jtzs
+nodePort=62179<==>nodePort=62198
+
+# 协同服务
+[coordination]
+# 领域缓存常量
+jtzs==/src/business/Coordination/Z9.Yun.Coordination.Domain/Shareds/Constants/RedisConstant.cs=>$
+SystemPrefix = "cms";<==>SystemPrefix = "cms-jtzs";
+# 事件常量
+jtzs==/src/business/Coordination/Z9.Yun.Coordination.EventMsgConstract/Shareds/Constants/CoordinationSharedContract.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/business/Coordination/Z9.Yun.Coordination.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-coordination-host<==>serviceName=fat-z9yun-coordination-host-jtzs
+jtzs==/src/business/Coordination/Z9.Yun.Coordination.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-coordination-httpapi<==>serviceName=fat-z9yun-coordination-httpapi-jtzs
+nodePort=62021<==>nodePort=62188
+
+# 项目服务
+[project]
+# 领域缓存常量
+jtzs==/src/business/Project/Z9.Yun.Project.Domain/Constants/RedisConstant.cs=>$
+SystemPrefix = "bpms";<==>SystemPrefix = "bpms-jtzs";
+# 事件常量
+jtzs==/src/business/Project/Z9.Yun.Product.EventMsgContract/EventConstants.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/business/Project/Z9.Yun.Project.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-project-host<==>serviceName=fat-z9yun-project-host-jtzs
+nodePort=62016<==>\#nodePort=62016
+jtzs==/src/business/Project/Z9.Yun.Project.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-project-httpapi<==>serviceName=fat-z9yun-project-httpapi-jtzs
+nodePort=62011<==>nodePort=62193
+jtzs==/src/business/Project/Z9.Yun.Project.ImportExport.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-project-importexport-host<==>serviceName=fat-z9yun-project-importexport-host-jtzs
+nodePort=62167<==>\#nodePort=62167
+
+# 财务服务
+[finance]
+# 领域缓存常量
+jtzs==/src/business/Finance/Z9.Yun.Finance.Domain/Constants/DomainRedisConstant.cs=>$
+LowerAppName = "fs";<==>LowerAppName = "fs-jtzs";
+# 事件常量
+jtzs==/src/business/Finance/Z9.Yun.Finance.EventMsgContract/Domain/EventConstans.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/business/Finance/Z9.Yun.Finance.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-finance-host<==>serviceName=fat-z9yun-finance-host-jtzs
+nodePort=62037<==>\#nodePort=62037
+jtzs==/src/business/Finance/Z9.Yun.Finance.HttpApi/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-finance-httpapi<==>serviceName=fat-z9yun-finance-httpapi-jtzs
+nodePort=62029<==>nodePort=62201
+jtzs==/src/business/Finance/Z9.Yun.Finance.ImportExport.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-finance-importexport-host<==>serviceName=fat-z9yun-finance-importexport-host-jtzs
+nodePort=62149<==>\#nodePort=62149
+
+
+# ============================ 第三方服务 ============================ 
+# 钉钉请求服务
+[dingtalkopenapi]
+# 领域缓存常量
+jtzs==/src/parter/ali/dingTalkOpenApi/Z9.Yun.DingTalkOpenApi.Domain/Global/Configs/DomainConstants.cs=>$
+LowerShortAppName = "dtoa";<==>LowerShortAppName = "dtoa-jtzs";
+# 事件常量
+jtzs==/src/parter/ali/dingTalkOpenApi/Z9.Yun.DingTalkOpenApi.EventMsgContract/Domain/DomainEventConstants.cs=>$
+-event";<==>-event-jtzs";
+# deploy
+jtzs==/src/parter/ali/dingTalkOpenApi/Z9.Yun.DingTalkOpenApi.Host/Deployfile/fat-deploy.conf=>$
+serviceName=fat-z9yun-dingtalkopenapi-host<==>serviceName=fat-z9yun-dingtalkopenapi-host-jtzs
+nodePort=64011<==>nodePort=64017
+

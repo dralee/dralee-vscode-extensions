@@ -1,0 +1,29 @@
+{
+  "name": "dralee-file-replace-rule-syntax",
+  "displayName": "Dralee File Replace Rule Syntax Highlighter",
+  "description": "遊龍文件替换规则语法高亮",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "dralee-file-replace-rule",
+        "aliases": ["Dralee File Replace Rule", "draleeerulereplace", "drp"],
+        "extensions": [".drp"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "dralee-file-replace-rule",
+        "scopeName": "source.drp",
+        "path": "./syntaxes/drp.tmLanguage.json"
+      }
+    ]
+  }
+}
