@@ -1,0 +1,15 @@
+{
+  "iconDefinitions": {
+    "dec-file": {
+      "iconPath": "./icons/dec.svg"
+    }
+  },
+
+  "fileExtensions": {
+    "dec": "dec-file"
+  },
+
+  "languageIds": {
+    "dec": "dec-file"
+  }
+}
