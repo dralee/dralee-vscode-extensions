@@ -76,6 +76,7 @@ https://pictogrammers.com/library/mdi/
     "*.drp": "Remark",
     "*.dec": "Dinophp",
     "*.dr": "Craco",
-    "*.q": "QSharp"
+    "*.q": "QSharp",
+    "*.deq": "QSharp"
   }
 ```
