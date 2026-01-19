@@ -1,0 +1,21 @@
+{
+  "hidesExplorerArrows": false,
+  "iconDefinitions": {
+    "_drp_file": {
+      "iconPath": "./icons/repl.svg"
+    }
+  },
+  "fileExtensions": {
+    "drp": "_drp_file"
+  },
+  "light": {
+    "fileExtensions": {
+      "drp": "_drp_file"
+    }
+  },
+  "highContrast": {
+    "fileExtensions": {
+      "drp": "_drp_file"
+    }
+  }
+}

@@ -24,13 +24,6 @@
         "scopeName": "source.dec",
         "path": "./syntaxes/dec.tmLanguage.json"
       }
-    ],
-    "iconThemes": [
-      {
-        "id": "dec-file",
-        "label": "Dralee Enum Config Icons",
-        "path": "./icon-theme.json"
-      }
     ]
   }
 }
