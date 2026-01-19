@@ -1,0 +1,42 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Dralee Content Replace Config",
+  "scopeName": "source.tr",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#replace-config"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.config",
+          "match": "^\\s*#.*$"
+        }
+      ]
+    },
+    "replace-config": {
+      "patterns": [
+        {
+          "name": "meta.replace-config.item",
+          "match": "(.*?)(==>)(.*?)\\s*$", 
+          "captures": {
+            "1": {
+              "name": "variable.other.param-name.config"
+            },
+            "2": {
+              "name": "keyword.operator.assignment.config"
+            },
+            "3": {
+              "name": "string.unquoted.value.config"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

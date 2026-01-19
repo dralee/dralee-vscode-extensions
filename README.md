@@ -1,6 +1,21 @@
 # dralee-vscode-extensions
 dralee daily vscode extensions
 
+### enum-config-syntax
+自定义的枚举配置语法高亮
+
+### export-query-syntax
+自定义的导出表配置语法高亮
+
+### file-replace-rule-syntax
+自定义的配置式替换文件内容语法高亮
+
+### generator-rule-syntax
+自定义的生成器文件拷贝语法高亮
+
+### replace-config-syntax
+自定义的文本内容替换语法高亮
+
 
 ### 打包
 ```bash
@@ -77,6 +92,7 @@ https://pictogrammers.com/library/mdi/
     "*.dec": "Dinophp",
     "*.dr": "Craco",
     "*.q": "QSharp",
-    "*.deq": "QSharp"
+    "*.deq": "QSharp",
+    "*.tr": "Purescript"
   }
 ```
