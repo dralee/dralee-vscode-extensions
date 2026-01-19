@@ -1,0 +1,42 @@
+{
+  "name": "dralee-key-value-config-syntax",
+  "displayName": "Dralee Key Value Config Syntax Highlighter",
+  "description": "自定义键值配置语法高亮",
+  "icon": "images/key.png",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "key",
+    "config",
+    "value",
+    "syntax",
+    "highlighting"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dralee/dralee-vscode-extensions/key-value-config-syntax"
+  },
+  "license": "Apache-2.0",
+  "contributes": {
+    "languages": [
+      {
+        "id": "kv",
+        "aliases": ["Dralee Key Value Config", "draleeekeyvalueconfig", "kv"],
+        "extensions": [".kv"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "kv",
+        "scopeName": "source.kv",
+        "path": "./syntaxes/kv.tmLanguage.json"
+      }
+    ]
+  }
+}

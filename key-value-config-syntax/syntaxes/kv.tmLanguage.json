@@ -1,0 +1,108 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Dralee Key Value Config",
+  "scopeName": "source.kv",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#key-value-config"
+    },
+    {
+      "include": "#continuation-line"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.config",
+          "match": "^\\s*#.*$"
+        }
+      ]
+    },
+    "key-value-config": {
+      "patterns": [
+        {
+          "name": "meta.key-value-config.item",
+          "match": "^([a-zA-Z_][a-zA-Z0-9_]*)(\\s*)(:)(\\s*)(.*)$",
+          "captures": {
+            "1": {
+              "name": "variable.other.param-name.config"
+            },
+            "2": {
+              "name": "whitespace.keyvalue"
+            },
+            "3": {
+              "name": "keyword.operator.assignment.config"
+            },
+            "4": {
+              "name": "whitespace.keyvalue"
+            },
+            "5": {
+              "patterns": [
+                {
+                  "include": "#value-content"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "continuation-line": {
+      "patterns": [
+        {
+          "name": "meta.continuation-line",
+          "match": "^(?![a-zA-Z_][a-zA-Z0-9_]*\\s*:)(?!\\s*#)(.+)$",
+          "captures": {
+            "1": {
+              "patterns": [
+                {
+                  "include": "#value-content"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "value-content": {
+      "patterns": [
+        {
+          "include": "#double-quoted-string"
+        },
+        {
+          "include": "#single-quoted-string"
+        },
+        {
+          "name": "string.unquoted.value.keyvalue",
+          "match": ".+"
+        }
+      ]
+    },
+    "double-quoted-string": {
+      "name": "string.quoted.double.keyvalue",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.keyvalue",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "single-quoted-string": {
+      "name": "string.quoted.single.keyvalue",
+      "begin": "'",
+      "end": "'",
+      "patterns": [
+        {
+          "name": "constant.character.escape.keyvalue",
+          "match": "\\\\."
+        }
+      ]
+    }
+  }
+}
