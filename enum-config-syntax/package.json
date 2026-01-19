@@ -2,6 +2,7 @@
   "name": "dralee-enum-config-syntax",
   "displayName": "Dralee Enum Config Syntax Highlighter",
   "description": "自定义枚举配置语法高亮",
+  "icon": "images/enumerate.png",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.60.0"
@@ -9,6 +10,18 @@
   "categories": [
     "Programming Languages"
   ],
+  "keywords": [
+    "enums",
+    "config",
+    "code",
+    "syntax",
+    "highlighting"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dralee/dralee-vscode-extensions/enum-config-syntax"
+  },
+  "license": "Apache-2.0",
   "contributes": {
     "languages": [
       {
