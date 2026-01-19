@@ -1,0 +1,157 @@
+# ============================================================
+# dev环境base组流水线
+# ============================================================
+dev-z9-eventsservice-host
+branch: fat
+
+dev-z9-eventsservice-httpapi
+branch: fat
+
+dev-z9-internaldatasync-host
+branch: fat
+
+dev-z9-internaldatasync-httpapi
+branch: fat
+
+dev-z9-jobservice-httpapi
+branch: fat
+
+dev-z9-labelservice-host
+branch: fat
+
+dev-z9-labelservice-httpapi
+branch: fat
+
+dev-z9-message-callback-httpapi
+branch: fat
+
+dev-z9-oss-admin-httpapi
+branch: fat
+
+dev-z9-oss-client-httpapi
+branch: fat
+
+dev-z9-oss0.2-httpapi
+branch: fat
+
+dev-z9-workorder-httpapi
+branch: fat
+
+dev-z9-worktask-host
+branch: fat
+
+dev-z9-worktask-httpapi
+branch: fat
+
+# ============================================================
+# dev环境business组流水线
+# ============================================================
+dev-z9-amazonorder-httpapi
+branch: fat
+
+dev-z9-collaborationplatformapi-host
+branch: fat
+
+dev-z9-collaborationplatformapi-httpapi
+branch: fat
+
+
+dev-z9-coordination-host
+branch: fat
+
+dev-z9-coordination-httpapi
+branch: fat
+
+dev-z9-cpds-httpapi
+branch: fat
+
+dev-z9-enterprise-httpapi
+branch: fat
+
+dev-z9-enterprise-host
+branch: fat
+
+dev-z9-finance-httpapi
+branch: fat
+
+dev-z9-finance-host
+branch: fat
+
+dev-z9-finance-host-eximport
+branch: fat
+
+dev-z9-logistics-host
+branch: fat
+
+dev-z9-logisticsprovider-host
+branch: fat
+
+dev-z9-marketplace-httpapi
+branch: fat
+
+dev-z9-marketplace-mobile-httpapi
+branch: fat
+
+dev-z9-packaging-httpapi
+branch: fat
+
+dev-z9-platformaccount-host
+branch: fat
+
+dev-z9-platformaccount-httpapi
+branch: fat
+
+
+dev-z9-platformgoods-host
+branch: fat
+
+
+dev-z9-product-host
+branch: fat
+
+
+dev-z9-product-host-eximport
+branch: fat
+
+
+dev-z9-project-host
+branch: fat
+
+
+dev-z9-project-httpapi
+branch: fat
+
+dev-z9-quality-host
+branch: fat
+
+dev-z9-reporting-data-httpapi
+branch: fat
+
+dev-z9-reporting-host
+branch: fat
+
+dev-z9-reporting-httpapi
+branch: fat
+
+dev-z9-ruleengine-host
+branch: fat
+
+
+dev-z9-ruleengine-httpapi
+branch: fat
+
+
+dev-z9-supplier-host
+branch: fat
+
+dev-z9-targetplan-host
+branch: fat
+
+dev-z9-warehouse-stock-host
+branch: fat
+
+dev-z9-warehouse-stock-httpapi
+branch: fat
+
+dev-z9yun-goodsloading-httpapi
+branch: fat

@@ -1,0 +1,42 @@
+{
+  "name": "dralee-line-split-config-syntax",
+  "displayName": "Dralee Line Split Config Syntax Highlighter",
+  "description": "自定义行分隔配置语法高亮",
+  "icon": "images/line-spacing.png",
+  "publisher": "dralee",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "line-split",
+    "config",
+    "syntax",
+    "highlighting"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dralee/dralee-vscode-extensions/line-split-config-syntax"
+  },
+  "license": "Apache-2.0",
+  "contributes": {
+    "languages": [
+      {
+        "id": "dl",
+        "aliases": ["Dralee Line Split Config", "draleeelinesplitconfig", "dl"],
+        "extensions": [".dl"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "dl",
+        "scopeName": "source.dl",
+        "path": "./syntaxes/dl.tmLanguage.json"
+      }
+    ]
+  }
+}
