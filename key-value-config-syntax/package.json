@@ -3,6 +3,7 @@
   "displayName": "Dralee Key Value Config Syntax Highlighter",
   "description": "自定义键值配置语法高亮",
   "icon": "images/key.png",
+  "publisher": "dralee",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.60.0"

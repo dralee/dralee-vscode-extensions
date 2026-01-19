@@ -4,6 +4,7 @@
   "description": "自定义内容替换配置语法高亮",
   "icon": "images/code-optimization.png",
   "version": "0.0.1",
+  "publisher": "dralee",
   "engines": {
     "vscode": "^1.60.0"
   },

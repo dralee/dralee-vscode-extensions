@@ -3,6 +3,7 @@
   "displayName": "Dralee Export Query Syntax Highlighter",
   "description": "自定义导出查询语法高亮",
   "icon": "images/delivery.png",
+  "publisher": "dralee",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.60.0"

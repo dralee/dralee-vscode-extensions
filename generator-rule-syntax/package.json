@@ -4,6 +4,7 @@
   "description": "遊龍生成器规则语法高亮",
   "icon": "images/hand.png",
   "version": "0.0.1",
+  "publisher": "dralee",
   "engines": {
     "vscode": "^1.60.0"
   },

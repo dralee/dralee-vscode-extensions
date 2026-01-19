@@ -4,6 +4,7 @@
   "description": "自定义枚举配置语法高亮",
   "icon": "images/enumerate.png",
   "version": "0.0.1",
+  "publisher": "dralee",
   "engines": {
     "vscode": "^1.60.0"
   },
