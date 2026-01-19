@@ -1,0 +1,40 @@
+name: Auto Release
+
+on:
+  push:
+    branches:
+      - release
+    tags:
+      - 'v*'       # 如果你希望只在打 tag 时发布，也可以只保留这一项
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 这里是你的构建步骤，根据项目修改
+      - name: Build package
+        run: |
+          mkdir -p dist
+          npm install -g @vscode/vsce
+          cd enum-config-syntax && vsce package -o ../dist
+          cd ../generator-rule-syntax && vsce package -o ../dist
+          cd ../export-query-syntax && vsce package -o ../dist
+          cd ../file-replace-rule-syntax && vsce package -o ../dist
+          cd ../replace-config-syntax && vsce package -o ../dist
+          cd ../key-value-syntax && vsce package -o ../dist
+          
+          cd ..
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.run_number }}
+          name: "Auto Release v${{ github.run_number }}"
+          files: |
+            dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
