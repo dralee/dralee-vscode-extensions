@@ -1,4 +1,4 @@
-name: Auto Release
+name: Dralee VSCode Extension Release
 
 on:
   push:
