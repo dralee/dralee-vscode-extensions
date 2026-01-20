@@ -28,6 +28,7 @@ jobs:
           cd ../file-replace-rule-syntax && vsce package -o ../dist
           cd ../replace-config-syntax && vsce package -o ../dist
           cd ../key-value-syntax && vsce package -o ../dist
+          cd ../line-split-config-syntax && vsce package -o ../dist
           
           cd ..
 
