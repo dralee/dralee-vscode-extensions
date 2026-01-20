@@ -765,3 +765,17 @@ text: "This has: a colon"
   ]
 }
 ```
+
+### settings.json
+```json
+"editor.tokenColorCustomizations": {
+    "textMateRules": [
+    {
+      "scope":"entity.name.section.block-name.blockconfig",
+      "settings": {
+        "foreground": "#B5CEA8",
+        "fontStyle": "bold"
+      }
+    }
+}
+```
