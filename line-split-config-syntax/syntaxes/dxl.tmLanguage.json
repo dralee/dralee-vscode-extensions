@@ -1,0 +1,130 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Dralee Line Split Config",
+  "scopeName": "source.dxl",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#block-section"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.blockconfig",
+          "match": "^\\s*#.*$"
+        }
+      ]
+    },
+    "block-section": {
+      "patterns": [
+        {
+          "name": "meta.block-section.blockconfig",
+          "begin": "^([a-zA-Z_][a-zA-Z0-9_\\-\\.]*)\\s*$",
+          "end": "^(?=\\s*$)|^(?=[a-zA-Z_][a-zA-Z0-9_\\-\\.]*\\s*$)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.block-name.blockconfig"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#key-value-pair"
+            },
+            {
+              "include": "#continuation-line"
+            },
+            {
+              "include": "#comments"
+            }
+          ]
+        }
+      ]
+    },
+    "key-value-pair": {
+      "patterns": [
+        {
+          "name": "meta.key-value.blockconfig",
+          "match": "^([a-zA-Z_][a-zA-Z0-9_]*)(\\s*)(:)(\\s*)(.*)$",
+          "captures": {
+            "1": {
+              "name": "variable.other.key.blockconfig"
+            },
+            "2": {
+              "name": "whitespace.blockconfig"
+            },
+            "3": {
+              "name": "punctuation.separator.colon.blockconfig"
+            },
+            "4": {
+              "name": "whitespace.blockconfig"
+            },
+            "5": {
+              "patterns": [
+                {
+                  "include": "#value-content"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "continuation-line": {
+      "patterns": [
+        {
+          "name": "string.unquoted.continuation.blockconfig",
+          "match": "^(?![a-zA-Z_][a-zA-Z0-9_]*\\s*:)(?!\\s*#)(?!\\s*$)(.+)$",
+          "captures": {
+            "1": {
+              "patterns": [
+                {
+                  "include": "#value-content"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "value-content": {
+      "patterns": [
+        {
+          "include": "#double-quoted-string"
+        },
+        {
+          "include": "#single-quoted-string"
+        },
+        {
+          "name": "string.unquoted.value.blockconfig",
+          "match": ".+"
+        }
+      ]
+    },
+    "double-quoted-string": {
+      "name": "string.quoted.double.blockconfig",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.blockconfig",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "single-quoted-string": {
+      "name": "string.quoted.single.blockconfig",
+      "begin": "'",
+      "end": "'",
+      "patterns": [
+        {
+          "name": "constant.character.escape.blockconfig",
+          "match": "\\\\."
+        }
+      ]
+    }
+  }
+}

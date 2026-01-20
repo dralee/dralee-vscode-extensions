@@ -41,4 +41,9 @@ vsce package
 $INSTALL && code --uninstall-extension dralee.dralee-key-value-config-syntax
 $INSTALL && code --install-extension dralee-key-value-config-syntax-0.0.1.vsix
 
+cd ../line-split-config-syntax
+vsce package
+$INSTALL && code --uninstall-extension dralee.dralee-line-split-config-syntax
+$INSTALL && code --install-extension dralee-line-split-config-syntax-0.0.1.vsix
+
 cd ..

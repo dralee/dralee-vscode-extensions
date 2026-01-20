@@ -93,6 +93,7 @@ https://pictogrammers.com/library/mdi/
     "*.dr": "Craco",
     "*.q": "QSharp",
     "*.deq": "QSharp",
-    "*.tr": "Purescript"
+    "*.tr": "Purescript",
+    "*.dl": "Stencil",
   }
 ```
