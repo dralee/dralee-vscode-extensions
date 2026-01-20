@@ -2,7 +2,7 @@
   "name": "dralee-line-split-config-syntax",
   "displayName": "Dralee Line Split Config Syntax Highlighter",
   "description": "自定义行分隔配置语法高亮",
-  "icon": "images/line-spacing.png",
+  "icon": "images/distribute-spacing-vertical.png",
   "publisher": "dralee",
   "version": "0.0.1",
   "engines": {
@@ -34,8 +34,8 @@
     "grammars": [
       {
         "language": "dl",
-        "scopeName": "source.dl",
-        "path": "./syntaxes/dl.tmLanguage.json"
+        "scopeName": "source.dxl",
+        "path": "./syntaxes/dxl.tmLanguage.json"
       }
     ]
   }
