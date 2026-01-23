@@ -48,7 +48,7 @@
       "patterns": [
         {
           "name": "meta.key-value.blockconfig",
-          "match": "^([a-zA-Z_][a-zA-Z0-9_]*)(\\s*)(:)(\\s*)(.*)$",
+          "match": "^([a-zA-Z_][a-zA-Z0-9_-]*)(\\s*)(:)(\\s*)(.*)$",
           "captures": {
             "1": {
               "name": "variable.other.key.blockconfig"
@@ -77,7 +77,7 @@
       "patterns": [
         {
           "name": "string.unquoted.continuation.blockconfig",
-          "match": "^(?![a-zA-Z_][a-zA-Z0-9_]*\\s*:)(?!\\s*#)(?!\\s*$)(.+)$",
+          "match": "^(?![a-zA-Z_][a-zA-Z0-9_-]*\\s*:)(?!\\s*#)(?!\\s*$)(.+)$",
           "captures": {
             "1": {
               "patterns": [
