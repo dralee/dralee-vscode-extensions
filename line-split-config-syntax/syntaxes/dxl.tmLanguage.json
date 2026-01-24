@@ -7,6 +7,9 @@
       "include": "#comments"
     },
     {
+      "include": "#include-other-file"
+    },
+    {
       "include": "#block-section"
     }
   ],
@@ -16,6 +19,22 @@
         {
           "name": "comment.line.number-sign.blockconfig",
           "match": "^\\s*#.*$"
+        }
+      ]
+    },
+    "include-other-file": {
+      "patterns": [
+        {
+          "name": "meta.include-other-file.blockconfig",
+          "match": "^\\s*(@include)\\s+(.*)$",
+          "captures": {
+            "1":{
+              "name": "keyword.control.include.blockconfig"
+            },
+            "2": {
+              "name": "string.unquoted.path.blockconfig"
+            }
+          }
         }
       ]
     },
