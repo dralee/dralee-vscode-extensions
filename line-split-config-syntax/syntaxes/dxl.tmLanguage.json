@@ -113,6 +113,9 @@
       "end": "\"",
       "patterns": [
         {
+          "include": "#parameter-name"
+        },
+        {
           "name": "constant.character.escape.blockconfig",
           "match": "\\\\."
         }
@@ -123,6 +126,9 @@
       "begin": "'",
       "end": "'",
       "patterns": [
+        {
+          "include": "#parameter-name"
+        },
         {
           "name": "constant.character.escape.blockconfig",
           "match": "\\\\."
