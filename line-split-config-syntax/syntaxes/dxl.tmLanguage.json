@@ -99,6 +99,10 @@
           "include": "#single-quoted-string"
         },
         {
+          "name": "entity.name.type.param",
+          "match": "\\$\\{.+\\}"
+        },
+        {
           "name": "string.unquoted.value.blockconfig",
           "match": ".+"
         }

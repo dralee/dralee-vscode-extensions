@@ -11,6 +11,7 @@ if [[ "$opt" =~ ^[y|Y]$ ]]; then
     echo after packing it, auto to install
 fi
 
+rm -rf dist
 mkdir -p dist
 cd enum-config-syntax
 vsce package -o ../dist
