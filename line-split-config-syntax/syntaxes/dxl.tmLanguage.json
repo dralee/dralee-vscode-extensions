@@ -48,7 +48,7 @@
       "patterns": [
         {
           "name": "meta.key-value.blockconfig",
-          "match": "^([a-zA-Z_][a-zA-Z0-9_]*)(\\s*)(:)(\\s*)(.*)$",
+          "match": "^([a-zA-Z_][a-zA-Z0-9_-]*)(\\s*)(:)(\\s*)(.*)$",
           "captures": {
             "1": {
               "name": "variable.other.key.blockconfig"
@@ -77,7 +77,7 @@
       "patterns": [
         {
           "name": "string.unquoted.continuation.blockconfig",
-          "match": "^(?![a-zA-Z_][a-zA-Z0-9_]*\\s*:)(?!\\s*#)(?!\\s*$)(.+)$",
+          "match": "^(?![a-zA-Z_][a-zA-Z0-9_-]*\\s*:)(?!\\s*#)(?!\\s*$)(.+)$",
           "captures": {
             "1": {
               "patterns": [
@@ -99,6 +99,9 @@
           "include": "#single-quoted-string"
         },
         {
+          "include": "#parameter-name"
+        },
+        {
           "name": "string.unquoted.value.blockconfig",
           "match": ".+"
         }
@@ -109,6 +112,9 @@
       "begin": "\"",
       "end": "\"",
       "patterns": [
+        {
+          "include": "#parameter-name"
+        },
         {
           "name": "constant.character.escape.blockconfig",
           "match": "\\\\."
@@ -121,8 +127,30 @@
       "end": "'",
       "patterns": [
         {
+          "include": "#parameter-name"
+        },
+        {
           "name": "constant.character.escape.blockconfig",
           "match": "\\\\."
+        }
+      ]
+    },
+    "parameter-name": {
+      "patterns": [
+        {
+          "name": "meta.parameter.type.variable",
+          "match": "(.*)(\\$\\{.+\\})(.*)",
+          "captures": {
+            "1": {
+              "name": "string.quoted.single.blockconfig"
+            },
+            "2": {
+              "name": "entity.name.type.param"
+            },
+            "3": {
+              "name": "string.quoted.single.blockconfig"
+            }
+          }
         }
       ]
     }
