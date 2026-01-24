@@ -99,8 +99,7 @@
           "include": "#single-quoted-string"
         },
         {
-          "name": "entity.name.type.param",
-          "match": "\\$\\{.+\\}"
+          "include": "#parameter-name"
         },
         {
           "name": "string.unquoted.value.blockconfig",
@@ -127,6 +126,25 @@
         {
           "name": "constant.character.escape.blockconfig",
           "match": "\\\\."
+        }
+      ]
+    },
+    "parameter-name": {
+      "patterns": [
+        {
+          "name": "meta.parameter.type.variable",
+          "match": "(.*)(\\$\\{.+\\})(.*)",
+          "captures": {
+            "1": {
+              "name": "string.quoted.single.blockconfig"
+            },
+            "2": {
+              "name": "entity.name.type.param"
+            },
+            "3": {
+              "name": "string.quoted.single.blockconfig"
+            }
+          }
         }
       ]
     }
