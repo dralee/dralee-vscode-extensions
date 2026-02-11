@@ -780,6 +780,14 @@ text: "This has: a colon"
         "foreground": "#B5CEA8",
         "fontStyle": "bold"
       }
+    },
+    {
+      "scope":"entity.name.type.eval",
+      "settings": {
+        "foreground": "#C586C0",
+        "fontStyle": "bold"
+      }
     }
+  ]
 }
 ```

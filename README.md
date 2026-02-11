@@ -97,3 +97,159 @@ https://pictogrammers.com/library/mdi/
     "*.dl": "Stencil",
   }
 ```
+
+#### vscode settings.json
+```json
+{
+//....
+    "editor.tokenColorCustomizations": {
+      "textMateRules": [
+      {
+        "scope": "comment.line.number-sign.configenum",
+        "settings": {
+          "foreground": "#6A9955",
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": "entity.name.type.table.configenum",
+        "settings": {
+          "foreground": "#4EC9B0",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "variable.other.field-name.configenum",
+        "settings": {
+          "foreground": "#9CDCFE"
+        }
+      },
+      {
+        "scope": "keyword.operator.assignment.configenum",
+        "settings": {
+          "foreground": "#C586C0",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "keyword.control.ref.configenum",
+        "settings": {
+          "foreground": "#C586C0",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "entity.name.type.enum-ref.configenum",
+        "settings": {
+          "foreground": "#4EC9B0"
+        }
+      },
+      {
+        "scope": "string.unquoted.field-description.configenum",
+        "settings": {
+          "foreground": "#CE9178"
+        }
+      },
+      {
+        "scope": "constant.numeric.enum-value.configenum",
+        "settings": {
+          "foreground": "#B5CEA8"
+        }
+      },
+      {
+        "scope": "string.unquoted.enum-description.configenum",
+        "settings": {
+          "foreground": "#CE9178"
+        }
+      },
+      {
+        "scope": "keyword.operator.enum-name-separator.configenum",
+        "settings": {
+          "foreground": "#C586C0"
+        }
+      },
+      {
+        "scope": "entity.name.constant.enum-name.configenum",
+        "settings": {
+          "foreground": "#4FC1FF",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "keyword.operator.enum-type-separator.configenum",
+        "settings": {
+          "foreground": "#C586C0",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "entity.name.type.enum-type.configenum",
+        "settings": {
+          "foreground": "#4EC9B0",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "keyword.operator.bidirectional.priority",
+        "settings": {
+          "foreground": "#C586C0"
+        }
+      },
+      {
+        "scope": "keyword.operator.arrow.priority",
+        "settings": {
+          "foreground": "#B5CEA8",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "constant.other.list-item.priority",
+        "settings": {
+          "foreground": "#4FC1FF"
+        }
+      },
+      {
+        "scope":"keyword.operator.assignment.config",
+        "settings": {
+          "foreground": "#C586C0",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope":"string.unquoted.value.config",
+        "settings": {
+          "foreground": "#4FC1FF"
+        }
+      },
+      {
+        "scope":"entity.name.section.block-name.blockconfig",
+        "settings": {
+          "foreground": "#B5CEA8",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope":"entity.name.type.eval",
+        "settings": {
+          "foreground": "#C586C0",
+          "fontStyle": "bold"
+        }
+      }
+    ]
+  },
+  "material-icon-theme.files.associations": {
+    "*.drp": "Remark",
+    "*.dec": "Dinophp",
+    "*.dr": "Craco",
+    "*.q": "QSharp",
+    "*.deq": "QSharp",
+    "*.tr": "Purescript",
+    "*.dl": "Stencil",
+  },
+  "material-icon-theme.folders.color": "#90a4ae",
+  "material-icon-theme.files.color": "#ef5350",
+  "material-icon-theme.opacity": 0.8,
+  "material-icon-theme.saturation": 1,
+  "workbench.iconTheme": "material-icon-theme"
+}
+```
