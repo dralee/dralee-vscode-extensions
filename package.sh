@@ -1,6 +1,7 @@
 #!/bin/bash
 # package all the syntaxes
 # 2026.01.19 by dralee
+# 2026.02.02 by dralee install the vsce tool if need
 # $1: install it for input y
 
 opt=$1
@@ -9,6 +10,12 @@ echo "if need to install it automatically, please input y/Y"
 if [[ "$opt" =~ ^[y|Y]$ ]]; then
     export INSTALL
     echo after packing it, auto to install
+fi
+
+ec=`npm ls | grep @vscode/vsce | wc -l`
+if [[ $ec -eq 0 ]]; then
+	echo install the vsce tool...
+	npm install -g @vscode/vsce
 fi
 
 rm -rf dist

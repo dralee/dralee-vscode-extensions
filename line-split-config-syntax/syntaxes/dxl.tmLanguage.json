@@ -7,6 +7,9 @@
       "include": "#comments"
     },
     {
+      "include": "#include-other-file"
+    },
+    {
       "include": "#block-section"
     }
   ],
@@ -16,6 +19,22 @@
         {
           "name": "comment.line.number-sign.blockconfig",
           "match": "^\\s*#.*$"
+        }
+      ]
+    },
+    "include-other-file": {
+      "patterns": [
+        {
+          "name": "meta.include-other-file.blockconfig",
+          "match": "^\\s*(@include)\\s+(.*)$",
+          "captures": {
+            "1":{
+              "name": "keyword.control.include.blockconfig"
+            },
+            "2": {
+              "name": "string.unquoted.path.blockconfig"
+            }
+          }
         }
       ]
     },
@@ -93,13 +112,16 @@
     "value-content": {
       "patterns": [
         {
+          "include": "#eval-expression"
+        },
+        {
+          "include": "#parameter-name"
+        },
+        {
           "include": "#double-quoted-string"
         },
         {
           "include": "#single-quoted-string"
-        },
-        {
-          "include": "#parameter-name"
         },
         {
           "name": "string.unquoted.value.blockconfig",
@@ -113,7 +135,7 @@
       "end": "\"",
       "patterns": [
         {
-          "include": "#parameter-name"
+          "include": "#eval-expression"
         },
         {
           "name": "constant.character.escape.blockconfig",
@@ -127,7 +149,7 @@
       "end": "'",
       "patterns": [
         {
-          "include": "#parameter-name"
+          "include": "#eval-expression"
         },
         {
           "name": "constant.character.escape.blockconfig",
@@ -149,6 +171,33 @@
             },
             "3": {
               "name": "string.quoted.single.blockconfig"
+            }
+          }
+        }
+      ]
+    },
+    "eval-expression": {
+      "patterns": [
+        {
+          "name": "meta.eval-expression.blockconfig",
+          "match": "(.*)(eval\\((.*)\\))(.*)",
+          "captures": {
+            "1": {
+              "patterns": [
+                {
+                  "include": "#value-content"
+                }
+              ]
+            },
+            "2": {
+              "name": "entity.name.type.eval"
+            },
+            "3": {
+              "patterns": [
+                {
+                  "include": "#value-content"
+                }
+              ]
             }
           }
         }
