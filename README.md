@@ -234,6 +234,13 @@ https://pictogrammers.com/library/mdi/
           "foreground": "#C586C0",
           "fontStyle": "bold"
         }
+      },
+      {
+        "scope":"keyword.operator.separator.optional.deq",
+        "settings": {
+          "foreground": "#C586C0",
+          "fontStyle": "bold"
+        }
       }
     ]
   },

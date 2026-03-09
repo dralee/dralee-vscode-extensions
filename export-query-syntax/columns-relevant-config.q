@@ -26,11 +26,11 @@ deleter_name,string
 deletion_time
 
 # 相关人数据资源表配置项
-[relevant_personnel_table_config_item;is_deleted=0 ORDER BY system_id,table_config_id,id]
-id
-system_id
+[relevant_personnel_table_config_item|dddddd$id='aaa';is_deleted=0 ORDER BY system_id,table_config_id,id]
+id?
+system_id|shww
 table_config_id
-table_name,string
+table_name|dddws,string
 column_name,string
 additional_condition,string
 creator_id

@@ -178,6 +178,13 @@ price,decimal
         "settings": {
           "foreground": "#B5CEA8"
         }
+      },
+      {
+        "scope":"keyword.operator.separator.optional.deq",
+        "settings": {
+          "foreground": "#C586C0",
+          "fontStyle": "bold"
+        }
       }
     ]
   }
