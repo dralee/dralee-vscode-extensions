@@ -164,13 +164,21 @@
           "match": "(.*)(\\$\\{.+\\})(.*)",
           "captures": {
             "1": {
-              "name": "string.quoted.single.blockconfig"
+              "patterns": [
+                {
+                  "include": "#value-content"
+                }
+              ]
             },
             "2": {
               "name": "entity.name.type.param"
             },
             "3": {
-              "name": "string.quoted.single.blockconfig"
+              "patterns": [
+                {
+                  "include": "#value-content"
+                }
+              ]
             }
           }
         }
