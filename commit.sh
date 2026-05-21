@@ -60,7 +60,7 @@ git push
 
 if [[ "$release" =~ ^[yY]$ ]]; then
     git checkout release
-    git merge --no-ff -m "merge dev to release" dev
+    git merge --no-ff -m "$comment" dev
     git push
 
     echo back to dev for local
