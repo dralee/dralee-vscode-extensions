@@ -8,13 +8,13 @@
 # -p: pull the code only, if want to commit need the -c
 # -h: print help message
 
-while getopts "c:r:ph" opt;do
+while getopts "c:rph" opt;do
 	case $opt in
 		c)
 			comment=$OPTARG
 			;;
 		r)
-			release=$OPTARG
+			release="Y"
 			;;
 		p)
 			pull_code="Y"
@@ -24,6 +24,7 @@ while getopts "c:r:ph" opt;do
 			echo "commit the current code for repo"
 			echo "-c: set the commit comment"
 			echo "-p: pull the code only, if want to commit the code need the -c argument"
+            echo "-r: for release the code to github release"
 			echo "-h: print this help message."
 			echo "========================================================================="
 			exit 0
