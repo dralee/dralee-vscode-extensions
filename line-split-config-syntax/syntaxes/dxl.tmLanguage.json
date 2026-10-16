@@ -115,6 +115,9 @@
           "include": "#eval-expression"
         },
         {
+            "include": "#form-file-expression"
+        },
+        {
           "include": "#parameter-name"
         },
         {
@@ -138,6 +141,9 @@
           "include": "#eval-expression"
         },
         {
+            "include": "#form-file-expression"
+        },
+        {
           "name": "constant.character.escape.blockconfig",
           "match": "\\\\."
         }
@@ -150,6 +156,9 @@
       "patterns": [
         {
           "include": "#eval-expression"
+        },
+        {
+            "include": "#form-file-expression"
         },
         {
           "name": "constant.character.escape.blockconfig",
@@ -189,6 +198,33 @@
         {
           "name": "meta.eval-expression.blockconfig",
           "match": "(.*)(eval\\((.*)\\))(.*)",
+          "captures": {
+            "1": {
+              "patterns": [
+                {
+                  "include": "#value-content"
+                }
+              ]
+            },
+            "2": {
+              "name": "entity.name.type.eval"
+            },
+            "3": {
+              "patterns": [
+                {
+                  "include": "#value-content"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "form-file-expression": {
+      "patterns": [
+        {
+          "name": "meta.eval-expression.blockconfig",
+          "match": "(.*)(file\\((.*)\\))(.*)",
           "captures": {
             "1": {
               "patterns": [
